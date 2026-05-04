@@ -1,5 +1,8 @@
 var allFunctions = function () {
   "use strict";
+  let currentMapObject = null;
+  let currentTextArea = null;
+  let currentXmlTableRows = [];
 
   console.log("entering all functions");
   var createTableFromJsonResponse = function (data) {
@@ -105,12 +108,18 @@ var allFunctions = function () {
     request.open("GET", requestUrl, true);
     request.onload = function () {
       if (this.status >= 200 && this.status < 400) {
+        if (currentTextArea) {
+          currentTextArea.remove();
+        }
         var textarea = document.createElement("textarea");
         textarea.rows = "20";
         textarea.cols = "60";
         textarea.style.border = "solid 1px black";
         textarea.textContent = this.responseText;
         document.querySelector("main .forDebug2").append(textarea);
+
+        currentTextArea = textarea;
+
         var xmlData = this.responseXML;
         handleXMLResponse(xmlData);
       } else {
@@ -128,6 +137,9 @@ var allFunctions = function () {
 
   var handleXMLResponse = function (data) {
     var feature = data.getElementsByTagName("intersection")[0];
+
+    document.querySelector("#xmlDataAsTable").innerHTML = "";
+
     if (typeof feature !== "undefined" && feature.childNodes.length > 0) {
       var headerRow = document.createElement("tr");
       headerRow.innerHTML = "<th>Property name</th><th>value</th>";
@@ -160,6 +172,8 @@ var allFunctions = function () {
     img.src = wms_request;
     document.querySelector("main .mapDiv").append(img);
     img.style.display = "block";
+
+    return img
   };
 
   var constructWMSrequest = function (
@@ -217,7 +231,7 @@ var allFunctions = function () {
       width_wms,
       height_wms
     );
-    getAndDisplayMap(wms_request);
+    return getAndDisplayMap(wms_request);
   };
 
   var searchFromInput = function () {
@@ -270,6 +284,11 @@ var allFunctions = function () {
     if (event.target.matches("input.theButton1")) {
       console.log("a button with class theButton1 clicked");
 
+      if (currentMapObject){
+        currentMapObject.remove();
+        console.log("removed old object"); 
+      }
+
       var lat, lng;
       var children = event.target.parentNode.parentNode.children;
       // console.log(children)
@@ -294,7 +313,7 @@ var allFunctions = function () {
 
       // let lat = 0
       // let lng = 0
-      requestWMSmap(lat, lng);
+      currentMapObject = requestWMSmap(lat, lng);
     }
   });
 }

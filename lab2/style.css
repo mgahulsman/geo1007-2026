@@ -1,0 +1,19 @@
+*{
+    background-color: red;
+}
+
+ol{
+    border: 1px solid black;
+}
+
+.another-font{
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+p {
+    border: 5px solid black;
+}
+
+h2 {
+    rotate: 180deg;
+}
