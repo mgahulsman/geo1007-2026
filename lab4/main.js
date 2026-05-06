@@ -74,6 +74,14 @@ var delft_parcels = L.tileLayer.wms(delft_parcels_url, {
   version: "1.1.1",
 });
 
+var top10nl = L.tileLayer.wms(delft_parcels_url, {
+  layers: 'maarten:GEBOUW_VLAK,maarten:SPOORBAANDEEL_LIJN', 
+  format: 'image/png',
+  transparent: true,
+  version: '1.1.1',
+  attribution: '© Kadaster - TOP10NL'
+});
+
 var pdok_natura2000_url = "https://service.pdok.nl/rvo/natura2000/wms/v1_0?";
 var natura2000 = new L.tileLayer.wms(pdok_natura2000_url, {
   layers: "natura2000",
@@ -85,6 +93,7 @@ var natura2000 = new L.tileLayer.wms(pdok_natura2000_url, {
 var overlays = {
   "Road noise [WMS]": sound,
   "Delft parcels": delft_parcels,
+  "TOP10NL Delft": top10nl,
   "Natura 2000 [PDOK]": natura2000,
 };
 
