@@ -71,8 +71,18 @@ var sound = new L.tileLayer.wms(wms_sound_url, {
   pointerCursor: true,
 });
 
+var delft_parcels_url = "http://localhost:8080/geoserver/maarten/wms?";
+
+var delft_parcels = L.tileLayer.wms(delft_parcels_url, {
+  layers: "maarten:parcels", 
+  format: "image/png",
+  transparent: true,
+  version: "1.1.1",
+});
+
 var overlays = {
   "Road noise [WMS]": sound,
+  "Delft parcels": delft_parcels,
 };
 
 var baseLayers = {
