@@ -47,17 +47,12 @@ var map = L.map("map-canvas", {
 
 // 2. aerial photo * not working at this moment (see Assignment)
 //    - can be switched on/off by toggle thru L.control.layers (see below in this script)
-var wms_aerial_url = "https://geodata1.nationaalgeoregister.nl/luchtfoto/wms?";
+var wms_aerial_url = "https://service.pdok.nl/hwh/luchtfotorgb/wms/v1_0?"; 
 var basemap_aerial = new L.tileLayer.wms(wms_aerial_url, {
-  layers: ["luchtfoto_png"],
-  styles: "",
+  layers: "Actueel_orthoHR", // De meest recente hoge resolutie laag
   format: "image/png",
   transparent: true,
-  pointerCursor: true,
 });
-basemap_aerial.getAttribution = function () {
-  return 'Luchtfoto WMS <a href="https://www.kadaster.nl">Kadaster</a>.';
-};
 
 // 3. a thematic WMS as overlay map
 var wms_sound_url = "https://data.rivm.nl/geo/alo/wms?";
