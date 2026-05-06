@@ -74,9 +74,18 @@ var delft_parcels = L.tileLayer.wms(delft_parcels_url, {
   version: "1.1.1",
 });
 
+var pdok_natura2000_url = "https://service.pdok.nl/rvo/natura2000/wms/v1_0?";
+var natura2000 = new L.tileLayer.wms(pdok_natura2000_url, {
+  layers: "natura2000",
+  format: "image/png",
+  transparent: true,
+  attribution: '© PDOK - Natura 2000'
+});
+
 var overlays = {
   "Road noise [WMS]": sound,
   "Delft parcels": delft_parcels,
+  "Natura 2000 [PDOK]": natura2000,
 };
 
 var baseLayers = {
